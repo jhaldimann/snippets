@@ -10,15 +10,18 @@ import javax.persistence.Id;
 
 @Entity
 public class Snippet {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Getter @Setter
     private String id;
+
     @Getter @Setter
     private String text;
+
     @Getter @Setter
     private String category;
+
     @Getter @Setter
     private String language;
 
