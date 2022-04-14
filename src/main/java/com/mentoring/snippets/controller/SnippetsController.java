@@ -2,7 +2,6 @@ package com.mentoring.snippets.controller;
 
 
 import com.mentoring.snippets.model.Snippet;
-import com.mentoring.snippets.repository.SnippetRepository;
 import com.mentoring.snippets.service.SnippetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,38 +15,34 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/snippets/")
-public class SnippetsController {
+public class SnippetsController implements ISnippetsController {
     private SnippetService snippetService;
 
-    private Logger LOG = LoggerFactory.getLogger(SnippetsController.class);
+    private final Logger LOG = LoggerFactory.getLogger(SnippetsController.class);
 
+    @Override
     @Autowired
-    public void setProductsService(SnippetService snippetService) {
+    public void setSnippetService(SnippetService snippetService) {
         this.snippetService = snippetService;
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.GET)
-    @GetMapping("/{id}")
-    public Snippet getSnippet(@PathVariable(name = "id") String id) {
+    @Override
+    public Snippet getSnippet(String id) {
         return snippetService.getSnippet(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PostMapping("/")
-    public Snippet saveSnippet(@RequestBody Snippet snippetToSave) {
+    @Override
+    public Snippet saveSnippet(Snippet snippetToSave) {
         return snippetService.saveSnippet(snippetToSave);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Snippet updateSnippet(@RequestBody Snippet snippetToUpdate, @PathVariable(name = "id") String id) {
+    @Override
+    public Snippet updateSnippet(Snippet snippetToUpdate, String id) {
         return snippetService.updateSnippet(snippetToUpdate, id);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    @DeleteMapping("{id}")
-    public void deleteSnippet(@PathVariable(name = "id") String id) {
+    @Override
+    public void deleteSnippet(String id) {
         snippetService.deleteSnippet(id);
     }
 }
