@@ -6,12 +6,10 @@ import com.mentoring.snippets.service.SnippetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/snippets/")
@@ -29,6 +27,16 @@ public class SnippetsController implements ISnippetsController {
     @Override
     public Snippet getSnippet(String id) {
         return snippetService.getSnippet(id);
+    }
+
+    @Override
+    public List<Snippet> getSnippets() {
+        return snippetService.getSnippets();
+    }
+
+    @Override
+    public List<Snippet> getSnippetsByUserId(String userid) {
+        return snippetService.getSnippetsByUserId(userid);
     }
 
     @Override

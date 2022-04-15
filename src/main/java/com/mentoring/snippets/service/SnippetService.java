@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SnippetService {
 
@@ -22,6 +24,14 @@ public class SnippetService {
     public Snippet getSnippet(String id) {
         LOG.info("Getting the snippet with given id:" + id);
         return snippetRepository.findById(id).orElse(null);
+    }
+
+    public List<Snippet> getSnippets() {
+        return snippetRepository.findAll();
+    }
+
+    public List<Snippet> getSnippetsByUserId(String userid) {
+        return snippetRepository.findByUserid(userid);
     }
 
     public Snippet saveSnippet(Snippet snippet) {
@@ -41,6 +51,7 @@ public class SnippetService {
             foundSnippet.setText(snippetToUpdate.getText());
             foundSnippet.setCategory(snippetToUpdate.getCategory());
             foundSnippet.setLanguage(snippetToUpdate.getLanguage());
+            foundSnippet.setUserid(snippetToUpdate.getUserid());
             return snippetRepository.save(foundSnippet);
         } catch (Exception e) {
             LOG.error("An error pccurred during update of product" + e.getMessage());

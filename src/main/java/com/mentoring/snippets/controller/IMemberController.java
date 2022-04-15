@@ -1,9 +1,7 @@
 package com.mentoring.snippets.controller;
 
 import com.mentoring.snippets.model.Member;
-import com.mentoring.snippets.model.Snippet;
 import com.mentoring.snippets.service.MemberService;
-import com.mentoring.snippets.service.SnippetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

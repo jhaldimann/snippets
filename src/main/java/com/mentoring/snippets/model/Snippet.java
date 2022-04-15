@@ -3,13 +3,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
+import java.util.List;
 
-@Entity
 @Getter @Setter
 @ToString
 @Table(name="SNIPPET")
+@Entity(name = "ForeignKeyAssoAccountEntity")
 public class Snippet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
@@ -18,4 +18,5 @@ public class Snippet {
     private String text;
     private String category;
     private String language;
+    private String userid;
 }

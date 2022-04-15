@@ -1,9 +1,7 @@
 package com.mentoring.snippets.service;
 
 import com.mentoring.snippets.model.Member;
-import com.mentoring.snippets.model.Snippet;
 import com.mentoring.snippets.repository.MemberRepository;
-import com.mentoring.snippets.repository.SnippetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
