@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: jhaldimann
+      changes:
+        - createTable:
+            tableName: snippet
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: text
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: userid
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: member
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: passwordhash
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: jhaldimann
+      changes:
+        - insert:
+            tableName: member
+            columns:
+              - column:
+                  name: username
+                  value: julian
+              - column:
+                  name: passwordhash
+                  value: abcd
+        - insert:
+            tableName: member
+            columns:
+              - column:
+                  name: username
+                  value: tim
+              - column:
+                  name: passwordhash
+                  value: cdef
+        - insert:
+            tableName: member
+            columns:
+              - column:
+                  name: username
+                  value: tom
+              - column:
+                  name: passwordhash
+                  value: fghi
