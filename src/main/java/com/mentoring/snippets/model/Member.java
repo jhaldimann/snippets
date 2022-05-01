@@ -19,4 +19,5 @@ public class Member {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     private String username;
+    private String password;
 }

@@ -28,7 +28,7 @@ services:
       DB_PASSWORD: ${POSTGRESQL_PASS}
     image: jboss/keycloak:${KEYCLOAK_VERSION}
     ports:
-      - "9990:8080"
+      - "8080:8080"
     restart: unless-stopped
     networks:
       - local-keycloak
