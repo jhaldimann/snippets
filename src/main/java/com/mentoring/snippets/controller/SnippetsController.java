@@ -16,8 +16,6 @@ import java.util.List;
 public class SnippetsController implements ISnippetsController {
     private SnippetService snippetService;
 
-    private final Logger LOG = LoggerFactory.getLogger(SnippetsController.class);
-
     @Override
     @Autowired
     public void setSnippetService(SnippetService snippetService) {

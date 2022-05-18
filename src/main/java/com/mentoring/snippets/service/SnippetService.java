@@ -2,6 +2,7 @@ package com.mentoring.snippets.service;
 
 import com.mentoring.snippets.model.Snippet;
 import com.mentoring.snippets.repository.SnippetRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class SnippetService {
-
-    private Logger LOG = LoggerFactory.getLogger(SnippetService.class);
 
     private SnippetRepository snippetRepository;
 
@@ -22,15 +22,17 @@ public class SnippetService {
     }
 
     public Snippet getSnippet(String id) {
-        LOG.info("Getting the snippet with given id:" + id);
+        log.info("Getting the snippet with given id:" + id);
         return snippetRepository.findById(id).orElse(null);
     }
 
     public List<Snippet> getSnippets() {
+        log.info("Return all snippets");
         return snippetRepository.findAll();
     }
 
     public List<Snippet> getSnippetsByUserId(String userid) {
+        log.info("Return all snippets of user" + userid);
         return snippetRepository.findByUserid(userid);
     }
 
@@ -38,9 +40,10 @@ public class SnippetService {
         Snippet snippetToSave;
         try {
             snippetToSave = snippetRepository.save(snippet);
+            log.info("Snippet saved");
             return snippetToSave;
         } catch (Exception e) {
-            LOG.error("An error occurred during product saving:" + e.getMessage());
+            log.error("An error occurred during product saving:" + e.getMessage());
         }
         return new Snippet();
     }
@@ -52,9 +55,10 @@ public class SnippetService {
             foundSnippet.setCategory(snippetToUpdate.getCategory());
             foundSnippet.setLanguage(snippetToUpdate.getLanguage());
             foundSnippet.setUserid(snippetToUpdate.getUserid());
+            log.info("Snippet" + id + "was updated");
             return snippetRepository.save(foundSnippet);
         } catch (Exception e) {
-            LOG.error("An error pccurred during update of product" + e.getMessage());
+            log.error("An error pccurred during update of product" + e.getMessage());
         }
         return snippetToUpdate;
     }
@@ -62,8 +66,9 @@ public class SnippetService {
     public void deleteSnippet(String id) {
         try {
             snippetRepository.deleteById(id);
+            log.info("Snippet" + id + "has been removed");
         } catch (Exception e) {
-            LOG.error("An error occurred during deleting of product:" + e.getMessage());
+            log.error("An error occurred during deleting of product:" + e.getMessage());
         }
     }
 }

@@ -1,4 +1,10 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8083/auth/realms/snippets
+          jwk-set-uri: http://localhost:8083/auth/realms/snippets/protocol/openid-connect/certs
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -21,3 +27,5 @@ springdoc:
   swagger-ui:
     operations-sorter: method
     path: /swagger-ui.html
+
+
