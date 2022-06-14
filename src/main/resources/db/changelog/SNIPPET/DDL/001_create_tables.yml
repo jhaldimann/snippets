@@ -35,22 +35,36 @@ databaseChangeLog:
                     nullable: false
 
         - createTable:
-            tableName: member
+            tableName: USERS
             columns:
-              - column:
-                  name: id
-                  type: int
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
               - column:
                   name: username
                   type: varchar(255)
                   constraints:
+                    primaryKey: true
                     nullable: false
               - column:
-                  name: passwordhash
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: tinyint
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: USER_ROLES
+            columns:
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -60,29 +74,47 @@ databaseChangeLog:
       author: jhaldimann
       changes:
         - insert:
-            tableName: member
+            tableName: USERS
             columns:
               - column:
                   name: username
                   value: julian
               - column:
-                  name: passwordhash
-                  value: abcd
+                  name: password
+                  value: $2y$10$RFv1NPQHoCDt9VxU3DpkY.fYm06XBJI7OQpduM5Nz4.sW3NMCDk6m
+              - column:
+                  name: enabled
+                  value: 1
         - insert:
-            tableName: member
+            tableName: USERS
             columns:
               - column:
                   name: username
                   value: tim
               - column:
-                  name: passwordhash
-                  value: cdef
+                  name: password
+                  value: $2y$10$RFv1NPQHoCDt9VxU3DpkY.fYm06XBJI7OQpduM5Nz4.sW3NMCDk6m
+              - column:
+                  name: enabled
+                  value: 1
         - insert:
-            tableName: member
+            tableName: USERS
             columns:
               - column:
                   name: username
                   value: tom
               - column:
-                  name: passwordhash
-                  value: fghi
+                  name: password
+                  value: $2y$10$RFv1NPQHoCDt9VxU3DpkY.fYm06XBJI7OQpduM5Nz4.sW3NMCDk6m
+              - column:
+                  name: enabled
+                  value: 1
+        - insert:
+            tableName: USER_ROLES
+            columns:
+              - column:
+                  name: username
+                  value: julian
+              - column:
+                  name: role
+                  value: admin
