@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SnippetRepository extends JpaRepository<Snippet, String> {
-    List<Snippet> findByUserid(String id);
+    List<Snippet> findByUsername(String username);
 }

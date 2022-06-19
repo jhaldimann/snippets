@@ -1,4 +1,4 @@
-package com.mentoring.snippets.config;
+package com.mentoring.snippets.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

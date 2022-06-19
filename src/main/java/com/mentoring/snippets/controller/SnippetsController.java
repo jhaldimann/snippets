@@ -33,8 +33,8 @@ public class SnippetsController implements ISnippetsController {
     }
 
     @Override
-    public List<Snippet> getSnippetsByUserId(String userid) {
-        return snippetService.getSnippetsByUserId(userid);
+    public List<Snippet> getSnippetsByUsername(String username) {
+        return snippetService.getSnippetsByUsername(username);
     }
 
     @Override

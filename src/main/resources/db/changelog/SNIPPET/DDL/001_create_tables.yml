@@ -29,7 +29,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: userid
+                  name: username
                   type: varchar(255)
                   constraints:
                     nullable: false

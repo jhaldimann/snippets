@@ -18,5 +18,5 @@ public class Snippet {
     private String text;
     private String category;
     private String language;
-    private String userid;
+    private String username;
 }

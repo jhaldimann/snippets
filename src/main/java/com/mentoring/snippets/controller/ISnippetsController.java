@@ -21,9 +21,9 @@ public interface ISnippetsController {
     @GetMapping("/")
     List<Snippet> getSnippets();
 
-    @RequestMapping(path = "/userid/{userid}", method = RequestMethod.GET)
+    @RequestMapping(path = "/username/{username}", method = RequestMethod.GET)
     @GetMapping("/")
-    List<Snippet> getSnippetsByUserId(@PathVariable(name="userid") String id);
+    List<Snippet> getSnippetsByUsername(@PathVariable(name="username") String username);
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/")

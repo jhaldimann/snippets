@@ -6,18 +6,16 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Getter @Setter
 @ToString
-@Table(name="MEMBER")
+@Table(name="USERS")
 @Entity(name = "ForeignKeyAssoEntity")
-public class Member {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
     private String username;
     private String password;
+    private Boolean enabled;
 }

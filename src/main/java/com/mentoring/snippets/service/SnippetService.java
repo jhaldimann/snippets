@@ -31,9 +31,9 @@ public class SnippetService {
         return snippetRepository.findAll();
     }
 
-    public List<Snippet> getSnippetsByUserId(String userid) {
-        log.info("Return all snippets of user" + userid);
-        return snippetRepository.findByUserid(userid);
+    public List<Snippet> getSnippetsByUsername(String username) {
+        log.info("Return all snippets of user" + username);
+        return snippetRepository.findByUsername(username);
     }
 
     public Snippet saveSnippet(Snippet snippet) {
@@ -54,7 +54,7 @@ public class SnippetService {
             foundSnippet.setText(snippetToUpdate.getText());
             foundSnippet.setCategory(snippetToUpdate.getCategory());
             foundSnippet.setLanguage(snippetToUpdate.getLanguage());
-            foundSnippet.setUserid(snippetToUpdate.getUserid());
+            foundSnippet.setUsername(snippetToUpdate.getUsername());
             log.info("Snippet" + id + "was updated");
             return snippetRepository.save(foundSnippet);
         } catch (Exception e) {
