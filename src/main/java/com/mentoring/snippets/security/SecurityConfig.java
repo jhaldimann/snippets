@@ -23,18 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/token/verify").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/swagger-ui.html")
-                .failureUrl("/login");
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Autowired
