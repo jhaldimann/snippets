@@ -7,6 +7,8 @@ import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/token")
 public class TokenController {
@@ -14,9 +16,12 @@ public class TokenController {
     @Autowired
     private JWTUtil jwtUtil;
 
-    @GetMapping()
-    public String getToken(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
+    @CrossOrigin
+    @PostMapping()
+    public HashMap<String, String> getToken(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return jwtUtil.generateToken(user.getUsername());
+        HashMap<String, String> res = new HashMap<>();
+        res.put("token", jwtUtil.generateToken(user.getUsername()));
+        return res;
     }
 }

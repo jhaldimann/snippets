@@ -6,19 +6,29 @@ import {LoginService} from "../login.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
+
 export class LoginComponent implements OnInit {
 
   constructor( private loginService: LoginService) { }
+
+
 
   ngOnInit(): void {
   }
 
   login() {
-    console.log('Before login');
     this.loginService.login().subscribe(data => {
-      console.log(data);
+      // @ts-ignore
+      this.createCookie(data.token);
     })
-    console.log('After login');
   }
 
+  createCookie(token: string) {
+    const d = new Date();
+    // After one day it will expire
+    d.setTime(d.getTime() + (24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = "token" + "=" + token + ";" + expires + ";path=/";
+  }
 }

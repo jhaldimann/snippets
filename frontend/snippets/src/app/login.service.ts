@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService {
 
   loginUrl = 'http://localhost:1337/token'
   constructor(private http: HttpClient) { }
 
-  login(){
-    return this.http.get(this.loginUrl)
+  authenticateUser(user: string, password: string) {
+
+    return "Basic " + btoa(user + ":" + password);
+  }
+
+  login() {
+    let username = (<HTMLInputElement>document.querySelector("#username")).value;
+    let password = (<HTMLInputElement>document.querySelector("#password")).value;
+
+    const headers = { 'Authorization': this.authenticateUser(username, password), "Access-Control-Allow-Origin": "*"}
+    return this.http.post(this.loginUrl, null , {'headers':headers});
   }
 }
