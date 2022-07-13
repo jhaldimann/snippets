@@ -1,5 +1,3 @@
-jwt_secret: snippets
-
 spring:
   mvc:
     pathmatch:
@@ -23,5 +21,9 @@ springdoc:
   swagger-ui:
     operations-sorter: method
     path: /swagger-ui.html
+
+jwt:
+  secret: secret
+  jwtExp: 300000
 
 

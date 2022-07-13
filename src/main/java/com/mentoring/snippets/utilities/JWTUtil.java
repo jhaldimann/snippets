@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 public class JWTUtil {
 
-    @Value("${jwt_secret}")
+    @Value("${jwt.secret}")
     private String secret;
 
     public String generateToken(String name) throws IllegalArgumentException, JWTCreationException {
@@ -25,14 +25,4 @@ public class JWTUtil {
                 .withIssuer("SNIPPETS/SNIPPETS/SNIPPETS")
                 .sign(Algorithm.HMAC256(secret));
     }
-
-    public String validateTokenAndRetrieveSubject(String token)throws JWTVerificationException {
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
-                .withSubject("User Details")
-                .withIssuer("SNIPPETS/SNIPPETS/SNIPPETS")
-                .build();
-        DecodedJWT jwt = verifier.verify(token);
-        return jwt.getClaim("name").asString();
-    }
-
 }

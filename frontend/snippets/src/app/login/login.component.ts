@@ -20,15 +20,11 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.login().subscribe(data => {
       // @ts-ignore
-      this.createCookie(data.token);
+      this.createSession(data.token);
     })
   }
 
-  createCookie(token: string) {
-    const d = new Date();
-    // After one day it will expire
-    d.setTime(d.getTime() + (24*60*60*1000));
-    let expires = "expires="+ d.toUTCString();
-    document.cookie = "token" + "=" + token + ";" + expires + ";path=/";
+  createSession(token: string) {
+    window.localStorage.setItem("token", token);
   }
 }
