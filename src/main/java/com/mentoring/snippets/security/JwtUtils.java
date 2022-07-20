@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.nimbusds.jose.shaded.json.JSONObject;
 import io.jsonwebtoken.impl.TextCodec;
+import liquibase.pro.packaged.D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,44 +44,37 @@ public class JwtUtils {
 	}
 
 	public String createToken(Map<String, Object> claims, String subject) {
-		System.out.println(SECRET_KEY);
 		return Jwts.builder()
-				.setIssuer("snippets")
+				.setIssuer("snippet")
+				.setHeaderParam("typ", "JWT")
+				.claim("name", claims.get("USERNAME"))
+				.claim("roles", claims.get("ROLES"))
 				.setSubject(subject)
-				.setClaims(claims)
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis()+ JWT_EXP))
-				.signWith(
-						SignatureAlgorithm.HS256,
-						SECRET_KEY
-				)
+				.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
 				.compact();
 	}
-	
-	public boolean validateJwtToken(String token) {
-		try {
-			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-			return true;
-		} catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
-			logger.error("Invalid token");
-		} catch (ExpiredJwtException ex) {
-			logger.error("Expired token");
-		}
 
-		return false;
+	public boolean isValid(String token) {
+		try {
+			final var claimsJws = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+			return claimsJws != null;
+		} catch (Exception exception) {
+			return false;
+		}
 	}
 
 	public String extractUsername(String token) {
 		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	public List<String> extractRoles(String token) {
-		return (List<String>) extractClaim(token).get("ROLES");
+		return (List<String>) extractClaim(token).get("roles");
 	}
 	
 	public Claims extractClaim(String token) {
-		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+		return  Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
 	}
 
 }

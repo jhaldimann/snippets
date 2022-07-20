@@ -27,16 +27,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		System.out.println(request);
 		try {
 			String jwt = parseJwt(request);
+			if (jwt != null && jwtUtils.isValid(jwt)) {
 
-			System.out.println(jwtUtils.validateJwtToken(jwt));
-			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				final String username = jwtUtils.extractUsername(jwt);
 				final List<String> roles = jwtUtils.extractRoles(jwt);
+
 				final UserDetails userDetails = new User(username, "", roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-				
+
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 				usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
@@ -47,15 +46,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 		filterChain.doFilter(request, response);
 	}
-	
+
+	/**
+	 * Parse incoming JWTs
+	 * @param request
+	 * @return
+	 */
 	private String parseJwt(HttpServletRequest request) {
 		String headerAuth = request.getHeader("Authorization");
 
 		if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-			return headerAuth.substring(7, headerAuth.length());
+			String token = headerAuth.substring(7);
+			return headerAuth.substring(7);
 		}
-
 		return null;
 	}
-
 }
