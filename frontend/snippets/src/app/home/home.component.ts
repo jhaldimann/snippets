@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
+
 
 @Component({
   selector: 'app-home',
@@ -8,8 +12,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   name: any = '';
+  snippets: any = []
 
-  constructor() { }
+  displayedColumns = ['text', 'category', 'language'];
+  dataSource = new MatTableDataSource(this.snippets);
+
+  constructor(private http: HttpClient) { }
 
   getDataFromJWT(token: any) {
       let base64Url = token.split('.')[1];
@@ -22,9 +30,24 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(window.localStorage.getItem('token')) {
-      this.name = this.getDataFromJWT(window.localStorage.getItem('token')).name;
+    const token = localStorage.getItem('token');
+    if(token) {
+      this.name = this.getDataFromJWT(token).name;
+
+      const headers = { 'Authorization': `Bearer ${token}`, "Access-Control-Allow-Origin": "*"}
+
+      const url = 'http://localhost:1337/api/snippets/username/' + this.name;
+
+      this.http.get(url, {headers: headers}).subscribe(res => {
+        this.snippets = res;
+      });
     }
   }
 
+}
+
+export interface Element {
+  text: string;
+  category: number;
+  language: number;
 }

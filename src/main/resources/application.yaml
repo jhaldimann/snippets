@@ -24,6 +24,6 @@ springdoc:
 
 jwt:
   secret: secret
-  jwtExp: 300000
+  jwtExp: 300000000
 
 
