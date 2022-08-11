@@ -78,7 +78,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: username
-                  value: julian
+                  value: admin
               - column:
                   name: password
                   value: $2y$10$RFv1NPQHoCDt9VxU3DpkY.fYm06XBJI7OQpduM5Nz4.sW3NMCDk6m
@@ -114,7 +114,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: username
-                  value: julian
+                  value: admin
               - column:
                   name: role
                   value: admin

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Slf4j
 @Service
 public class SnippetService {
@@ -48,8 +50,9 @@ public class SnippetService {
         return new Snippet();
     }
 
-    public Snippet updateSnippet(Snippet snippetToUpdate, String id) {
-        Snippet foundSnippet = snippetRepository.findById(id).orElse(null);
+    public Snippet updateSnippetByUsername(Snippet snippetToUpdate, String username) {
+        Snippet foundSnippet = (Snippet) snippetRepository.findByUsername(username);
+        log.info(foundSnippet.toString());
         try {
             foundSnippet.setText(snippetToUpdate.getText());
             foundSnippet.setCategory(snippetToUpdate.getCategory());

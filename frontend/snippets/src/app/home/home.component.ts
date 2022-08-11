@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   name: any = '';
   snippets: any = []
 
-  displayedColumns = ['text', 'category', 'language'];
+  displayedColumns = ['category', 'language', 'text'];
   dataSource = new MatTableDataSource(this.snippets);
 
   constructor(private http: HttpClient) { }
