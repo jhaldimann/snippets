@@ -23,17 +23,18 @@ public class UserController implements IUserController {
     }
 
     @Override
-    public User saveMember(User userToSave) {
-        return this.userService.saveMember(userToSave);
+    public User saveMember(User user) {
+        return this.userService.saveMember(user);
     }
 
     @Override
     public User updateMember(User userToUpdate, String id) {
+        this.userService.updateMember(userToUpdate, id);
         return null;
     }
 
     @Override
     public void deleteMember(String id) {
-
+        this.userService.deleteMember(id);
     }
 }

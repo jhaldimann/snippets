@@ -25,6 +25,7 @@ public class UserService {
     public User saveMember(User user) {
         User userToSave;
         try {
+            log.info(user.toString());
             userToSave = userRepository.save(user);
             return userToSave;
         } catch (Exception e) {
@@ -36,6 +37,7 @@ public class UserService {
     public User updateMember(User userToUpdate, String id) {
         User foundUser = userRepository.findById(id).orElse(null);
         try {
+
             foundUser.setUsername(userToUpdate.getUsername());
             return userRepository.save(foundUser);
         } catch (Exception e) {

@@ -29,21 +29,27 @@ public class SnippetsController implements ISnippetsController {
     @Override
     @PreAuthorize("#username == authentication.getPrincipal().username")
     public List<Snippet> getSnippetsByUsername(String username) {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-
-        log.info(authentication.getPrincipal().toString());
         return snippetService.getSnippetsByUsername(username);
     }
 
     @Override
-    @PreAuthorize("#username == authentication.getPrincipal().username")
-    public Snippet updateSnippetByUsername(String username, Snippet snippetToUpdate) {
-        return snippetService.updateSnippetByUsername(snippetToUpdate, username);
+    public Snippet updateSnippet(Snippet snippet) {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        if(!authentication.getName().equals(snippet.getUsername())) {
+            return null;
+        }
+        return snippetService.updateSnippet(snippet);
+    }
+
+    @Override
+    public void update(Snippet snippet) {
+        log.info(snippet.toString());
     }
 
     @Override
     public Snippet saveSnippet(Snippet snippetToSave) {
+
         return snippetService.saveSnippet(snippetToSave);
     }
 

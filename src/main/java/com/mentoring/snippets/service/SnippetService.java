@@ -3,14 +3,10 @@ package com.mentoring.snippets.service;
 import com.mentoring.snippets.model.Snippet;
 import com.mentoring.snippets.repository.SnippetRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Slf4j
 @Service
@@ -23,22 +19,18 @@ public class SnippetService {
         this.snippetRepository = snippetRepository;
     }
 
-    public Snippet getSnippet(String id) {
-        log.info("Getting the snippet with given id:" + id);
-        return snippetRepository.findById(id).orElse(null);
-    }
-
     public List<Snippet> getSnippets() {
         log.info("Return all snippets");
         return snippetRepository.findAll();
     }
 
     public List<Snippet> getSnippetsByUsername(String username) {
-        log.info("Return all snippets of user" + username);
+        log.info("---> Return all snippets of user" + username + " <---");
         return snippetRepository.findByUsername(username);
     }
 
     public Snippet saveSnippet(Snippet snippet) {
+        log.info("---> Start Snippet saving <---");
         Snippet snippetToSave;
         try {
             snippetToSave = snippetRepository.save(snippet);
@@ -50,20 +42,19 @@ public class SnippetService {
         return new Snippet();
     }
 
-    public Snippet updateSnippetByUsername(Snippet snippetToUpdate, String username) {
-        Snippet foundSnippet = (Snippet) snippetRepository.findByUsername(username);
-        log.info(foundSnippet.toString());
+    public Snippet updateSnippet(Snippet snippet) {
+        log.info("---> Start Snippet saving <---");
+        Snippet foundSnippet = snippetRepository.findById(snippet.getId()).get();
+        foundSnippet.setUsername(snippet.getUsername());
+        foundSnippet.setCategory(snippet.getCategory());
+        foundSnippet.setLanguage(snippet.getLanguage());
+        foundSnippet.setText(snippet.getText());
         try {
-            foundSnippet.setText(snippetToUpdate.getText());
-            foundSnippet.setCategory(snippetToUpdate.getCategory());
-            foundSnippet.setLanguage(snippetToUpdate.getLanguage());
-            foundSnippet.setUsername(snippetToUpdate.getUsername());
-            log.info("Snippet" + id + "was updated");
             return snippetRepository.save(foundSnippet);
         } catch (Exception e) {
-            log.error("An error pccurred during update of product" + e.getMessage());
+            log.error("An error occurred during update of snippet" + e.getMessage());
         }
-        return snippetToUpdate;
+        return snippet;
     }
 
     public void deleteSnippet(String id) {
