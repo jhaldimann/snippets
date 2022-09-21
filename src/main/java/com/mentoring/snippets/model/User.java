@@ -15,6 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
     private String username;
     private String password;
     private int enabled;
