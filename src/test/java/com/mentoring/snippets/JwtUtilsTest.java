@@ -1,8 +1,6 @@
 package com.mentoring.snippets;
 
 import com.mentoring.snippets.security.JwtUtils;
-import io.jsonwebtoken.Jwt;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -21,7 +19,5 @@ public class JwtUtilsTest {
     public void getJWTToken() {
         Map<String, Object> infos = new HashMap<>();
         infos.put("USERNAME", "Tester");
-
-        jwtUtils.createToken()
     }
 }

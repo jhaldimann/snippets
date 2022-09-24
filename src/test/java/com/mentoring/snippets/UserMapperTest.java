@@ -2,7 +2,6 @@ package com.mentoring.snippets;
 
 import com.mentoring.snippets.dto.UserDto;
 import com.mentoring.snippets.mapper.UserMapper;
-import com.mentoring.snippets.mapper.UserMapperImpl;
 import com.mentoring.snippets.model.User;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
