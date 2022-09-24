@@ -1,0 +1,19 @@
+<p>new-snippet works!</p>
+
+<form class="form">
+  <mat-form-field class="example-full-width">
+    <input name="category" matInput placeholder="Category" [(ngModel)]="category">
+  </mat-form-field>
+  <br>
+  <mat-form-field class="example-full-width">
+    <input name="language" matInput placeholder="Language" [(ngModel)]="language">
+  </mat-form-field>
+  <br>
+  <mat-form-field class="example-full-width">
+    <textarea name="text" matInput placeholder="Code" [(ngModel)]="text"></textarea>
+  </mat-form-field>
+
+  <button (click)="createNewSnippet()">Create new Snippet</button>
+</form>
+
+

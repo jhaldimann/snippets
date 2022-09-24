@@ -1,0 +1,32 @@
+.form {
+  margin-top: 50px;
+  margin-left: 50px;
+  width: 500px;
+  position: relative;
+  padding: 50px;
+
+  input {
+    font-size: 25px;
+  }
+
+  textarea {
+    font-size: 25px;
+  }
+
+  button {
+    background-color: #333333;
+    color: white;
+    height: 40px;
+    width: 200px;
+    border: none;
+    border-radius: 10px;
+    position: absolute;
+    right: 50px;
+    bottom: 0;
+    cursor: pointer;
+  }
+}
+
+.mat-form-field {
+  width: 500px;
+}

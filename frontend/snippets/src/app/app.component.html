@@ -4,7 +4,6 @@
 <div class="content" role="main">
   <app-login *ngIf="!isTokenAvailable()"></app-login>
   <app-home *ngIf="isTokenAvailable()"></app-home>
-
 </div>
 
 <router-outlet></router-outlet>
