@@ -29,6 +29,7 @@ export class SnippetsComponent implements OnInit {
 
       this.http.get(url, {headers: headers}).subscribe(res => {
         this.snippets = res;
+        this.dataSource = new MatTableDataSource(this.snippets);
       });
     }
   }

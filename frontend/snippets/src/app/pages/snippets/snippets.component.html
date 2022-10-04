@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="snippets">
+  <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="category">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
@@ -17,6 +17,11 @@
     <ng-container matColumnDef="language">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Language </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.language}} </mat-cell>
+    </ng-container>
+
+    <ng-container>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Language </mat-header-cell>
+      <button>Hallo</button>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

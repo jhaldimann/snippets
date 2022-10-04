@@ -33,6 +33,7 @@ public class SnippetsController implements ISnippetsController {
     }
 
     @Override
+    @PreAuthorize("#snippet.username == authentication.getPrincipal().username")
     public Snippet updateSnippet(Snippet snippet) {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
@@ -48,6 +49,7 @@ public class SnippetsController implements ISnippetsController {
     }
 
     @Override
+    @PreAuthorize("#snippetToSave.username == authentication.getPrincipal().username")
     public Snippet saveSnippet(Snippet snippetToSave) {
 
         return snippetService.saveSnippet(snippetToSave);
