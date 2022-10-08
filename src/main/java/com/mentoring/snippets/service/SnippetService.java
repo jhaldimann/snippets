@@ -13,6 +13,12 @@ import java.util.List;
 public class SnippetService {
 
     private SnippetRepository snippetRepository;
+    private final ProducerService producerService;
+
+    @Autowired
+    public SnippetService(ProducerService producerService) {
+        this.producerService = producerService;
+    }
 
     @Autowired
     public void setSnippetRepository(SnippetRepository snippetRepository) {
@@ -25,7 +31,6 @@ public class SnippetService {
     }
 
     public List<Snippet> getSnippetsByUsername(String username) {
-        log.info("---> Return all snippets of user" + username + " <---");
         return snippetRepository.findByUsername(username);
     }
 
@@ -34,9 +39,11 @@ public class SnippetService {
         Snippet snippetToSave;
         try {
             snippetToSave = snippetRepository.save(snippet);
+            producerService.createManualProducer("[Snippet Saved] " + snippetToSave);
             log.info("Snippet saved");
             return snippetToSave;
         } catch (Exception e) {
+            producerService.createManualProducer("[Error] An error occurred during product saving:" + e.getMessage());
             log.error("An error occurred during product saving:" + e.getMessage());
         }
         return new Snippet();
@@ -50,7 +57,8 @@ public class SnippetService {
         foundSnippet.setLanguage(snippet.getLanguage());
         foundSnippet.setText(snippet.getText());
         try {
-            return snippetRepository.save(foundSnippet);
+            Snippet updatedSnippet = snippetRepository.save(foundSnippet);
+            producerService.createManualProducer("[Snippet Updated] " + updatedSnippet);
         } catch (Exception e) {
             log.error("An error occurred during update of snippet" + e.getMessage());
         }
@@ -60,6 +68,7 @@ public class SnippetService {
     public void deleteSnippet(String id) {
         try {
             snippetRepository.deleteById(id);
+            producerService.createManualProducer("[Snippet Deleted] " + "Snippet " + id + " has been removed");
             log.info("Snippet" + id + "has been removed");
         } catch (Exception e) {
             log.error("An error occurred during deleting of product:" + e.getMessage());
