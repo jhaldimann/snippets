@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +50,7 @@ public class JwtUtils {
 
 	public boolean isValid(String token) {
 		try {
-			final var claimsJws = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+			final io.jsonwebtoken.Jws<Claims> claimsJws = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
 			return claimsJws != null;
 		} catch (Exception exception) {
 			return false;
