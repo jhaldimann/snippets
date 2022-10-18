@@ -1,9 +1,10 @@
+FROM maven:3.6.0-jdk-11 as compileStage
+WORKDIR /app
+COPY ./backend .
+RUN mvn clean package -DskipTests -q
+
 FROM maven:3.6.0-jdk-11
 WORKDIR /app
-COPY . .
-
-# At build time, only compile the application but do not run it
-RUN mvn clean install -DskipTests -q
-
-# When you launch the container, this will be the main command
-CMD mvn spring-boot:run
+EXPOSE 1337
+COPY --from=compileStage /app/target/snippet-0.0.1.jar ./
+CMD ["java","-jar","snippet-0.0.1.jar"]
