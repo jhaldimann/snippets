@@ -1,7 +1,7 @@
 spring:
   kafka:
     bootstrap-servers:
-      - localhost:29092
+      - ${HOST:localhost}:29092
     template:
       default-topic: snippets
     producer:
@@ -11,7 +11,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:postgresql://localhost:5432/snippets
+    url: jdbc:postgresql://${HOST:localhost}:${DB_PORT:5432}/snippets
     username: postgres
     password: secret
   jpa:
