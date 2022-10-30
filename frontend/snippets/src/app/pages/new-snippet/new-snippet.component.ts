@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {getDataFromJWT, getTokenFromLocalStorage} from "../../utils/jwt";
+import {getDataFromJWT} from "../../utils/jwt";
 
 @Component({
   selector: 'app-new-snippet',
@@ -30,8 +30,6 @@ export class NewSnippetComponent implements OnInit {
 
       const url = 'http://localhost:1337/api/snippets/';
 
-      console.log(this.name, this.text, this.language, this.category)
-
       this.http.post(url, {
         'text': this.text,
         'category': this.category,
@@ -44,5 +42,4 @@ export class NewSnippetComponent implements OnInit {
       });
     }
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {HttpClient} from "@angular/common/http";
-import {getDataFromJWT, getTokenFromLocalStorage} from "../../utils/jwt";
+import {getDataFromJWT} from "../../utils/jwt";
 
 @Component({
   selector: 'app-snippets',

@@ -1,6 +1,6 @@
 FROM maven:3.6.0-jdk-11 as compileStage
 WORKDIR /app
-COPY ./backend .
+COPY . .
 RUN mvn clean package -DskipTests -q
 
 FROM maven:3.6.0-jdk-11
