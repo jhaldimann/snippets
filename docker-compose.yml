@@ -24,6 +24,16 @@ services:
     ports:
       - 22181:2181
 
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+    depends_on:
+      - "kafka"
+
   kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
