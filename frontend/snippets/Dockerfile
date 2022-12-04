@@ -1,15 +1,13 @@
 FROM node as builder
-ARG HOST
-WORKDIR /src
+WORKDIR /src/app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN ls -la /src
-RUN ./replace-placeholder.sh $HOST
-RUN echo $HOST + "....................................."
 RUN npm run build --prod
+COPY replace-placeholder.sh /src/app/dist/snippets
+COPY env.json /src/app/dist/snippets
+RUN ls -la /src/app/dist/snippets
 
 FROM nginx:alpine as server
-ARG HOST
-RUN echo $HOST + "--------------"
 COPY --from=builder /src/app/dist/snippets /usr/share/nginx/html
+RUN ./usr/share/nginx/html/replace-placeholder.sh

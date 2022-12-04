@@ -16,7 +16,33 @@ services:
     volumes:
       - ~/Dev/postgres:/var/lib/postgresql/data/
 
+  backend:
+    container_name: backend
+    hostname: backend
+    image: snippets-backend:latest
+    ports:
+      - "1337:1337"
+    expose:
+      - "1337"
+    depends_on:
+      - db
+    environment:
+      - HOST=host.docker.internal
+
+  frontend:
+    container_name: frontend
+    hostname: frontend
+    image: snippets-frontend:latest
+    ports:
+      - "80:80"
+    expose:
+      - "80"
+    environment:
+      - HOST=backend
+
   zookeeper:
+    container_name: zookeeper
+    hostname: zookeeper
     image: confluentinc/cp-zookeeper:latest
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -24,17 +50,9 @@ services:
     ports:
       - 22181:2181
 
-  kafdrop:
-    image: obsidiandynamics/kafdrop
-    restart: "no"
-    ports:
-      - "9000:9000"
-    environment:
-      KAFKA_BROKERCONNECT: "kafka:29092"
-    depends_on:
-      - "kafka"
-
   kafka:
+    container_name: kafka
+    hostname: kafka
     image: confluentinc/cp-kafka:latest
     depends_on:
       - zookeeper
